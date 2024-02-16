@@ -1,0 +1,48 @@
+---
+title: "Capstone 1. Car"
+author: "Olakunle Kuforiji"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+runtime: shiny
+---
+
+```{r}
+# Load necessary library
+library(readr)
+
+# Load the dataset with the correct delimiter
+cars_data <- read_delim("C:\\Users\\Kunle Kuforiji\\OneDrive\\Documents\\cars.csv", delim = ";", show_col_types = FALSE)
+
+# Display the first few rows to confirm correct loading
+head(cars_data)
+# Display the column names of the dataset
+colnames(cars_data)
+# Install ggplot2 if you haven't already
+install.packages("ggplot2")
+
+# Load the ggplot2 package
+library(ggplot2)
+
+# Adjusting column names to match the dataframe
+ggplot(cars_data, aes(x = Weight, y = MPG)) + 
+  geom_point() +  # For scatter plot
+  geom_smooth(method = "lm", se = FALSE) +  # Add a linear regression line, without displaying the confidence interval
+  labs(title = "MPG vs. Weight", x = "Weight", y = "MPG")
+
+
+
+```
+
+## Bullets
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+## R Output
+
+```{r cars}
+summary(cars)
+```
+
+
