@@ -1,0 +1,117 @@
+---
+title: "Capstone 1. Car"
+author: "Olakunle Kuforiji"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+runtime: shiny
+---
+
+```{r}
+
+library(readr)
+
+cars_data <- read_delim("C:\\Users\\Kunle Kuforiji\\OneDrive\\Documents\\cars.csv", delim = ";", show_col_types = FALSE)
+
+
+head(cars_data)
+
+colnames(cars_data)
+
+install.packages("ggplot2")
+
+
+library(ggplot2)
+
+ggplot(cars_data, aes(x = Weight, y = MPG)) + 
+  geom_point() +  
+  geom_smooth(method = "lm", se = FALSE) +   interval
+  labs(title = "MPG vs. Weight", x = "Weight", y = "MPG")
+
+
+
+```
+
+## Bullets
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+## R Output
+
+```{r cars}
+install.packages("dplyr")
+library(dplyr)
+
+library(ggplot2)
+library(dplyr)
+
+cars_data <- read.csv("C:\\Users\\Kunle Kuforiji\\OneDrive\\Documents\\cars.csv", sep = ";", skip = 1, header = FALSE)
+colnames(cars_data) <- c('Car', 'MPG', 'Cylinders', 'Displacement', 'Horsepower', 'Weight', 'Acceleration', 'Model', 'Origin')
+
+
+cars_data <- cars_data %>%
+  filter(MPG > 0, Horsepower > 0)
+
+ggplot(cars_data, aes(x = factor(Cylinders), y = MPG)) +
+  geom_boxplot() +
+  labs(title = "MPG vs. Cylinders", x = "Cylinders", y = "MPG") +
+  theme_minimal()
+
+
+ggplot(cars_data, aes(x = Origin, y = MPG, fill = Origin)) +
+  geom_boxplot() +
+  labs(title = "Comparative Analysis of MPG by Origin", x = "Origin", y = "MPG") +
+  theme_minimal()
+
+library(ggplot2)
+library(dplyr)
+
+cars_data$MPG <- as.numeric(as.character(cars_data$MPG))
+
+
+cars_data <- cars_data %>% filter(!is.na(MPG))
+
+mpg_by_cylinders <- cars_data %>%
+  group_by(Cylinders) %>%
+  summarise(
+    Average_MPG = mean(MPG, na.rm = TRUE),
+    Median_MPG = median(MPG, na.rm = TRUE),
+    Min_MPG = min(MPG, na.rm = TRUE),
+    Max_MPG = max(MPG, na.rm = TRUE)
+  )
+
+print(mpg_by_cylinders)
+
+
+mpg_by_origin <- cars_data %>%
+  group_by(Origin) %>%
+  summarise(
+    Average_MPG = mean(MPG, na.rm = TRUE),
+    Median_MPG = median(MPG, na.rm = TRUE)
+  )
+
+
+ggplot(cars_data, aes(x = Weight, y = MPG)) +
+  geom_point(aes(color = as.factor(Cylinders))) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "MPG vs. Weight", x = "Weight", y = "MPG") +
+  theme_minimal()
+
+
+print(mpg_by_cylinders)
+print(mpg_by_origin)
+
+
+cat("Conclusions:\n")
+cat("1. Vehicles with fewer cylinders tend to have higher MPG, indicating more fuel-efficient engines.\n")
+cat("2. There is a negative correlation between vehicle weight and MPG, suggesting that lighter vehicles are more fuel-efficient.\n")
+cat("3. Vehicle origin appears to influence MPG, with vehicles from certain regions showing higher average MPG. This might reflect differences in manufacturing practices or fuel economy standards.\n")
+
+
+
+
+
+```
+
+
